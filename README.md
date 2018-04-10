@@ -11,6 +11,8 @@ Google Group for discussions, support, advice etc: [http://groups.google.co.uk/g
 
 These files allow you to use the [YottaDB](https://github.com/YottaDB/YottaDB) database within a Docker Container, but retain persistence between invocations of the Container.  They are a set of initialised YottaDB Global Directory files to which you should map your Docker's YottaDB global directory.
 
+Note: the files in this repository are for use with YottaDB version 1.2
+
 
 ## Example
 
@@ -25,17 +27,17 @@ If you're using the *rtweed/qewd-server* Docker Container and want YottaDB datab
 - change the permissions to match those expected by YottaDB
 
        cd yotta-gbldir-files
-       sudo chmod 666 gtm.dat
-       sudo chmod 664 gtm.gld
-       sudo chmod 666 gtm.mjl
+       sudo chmod 666 yottadb.dat
+       sudo chmod 664 yottadb.gld
+       sudo chmod 666 yottadb.mjl
 
 - start *qewd-server* and map this directory
 
-       sudo docker run -it -p 8081:8080 -v ~/qewd:/opt/qewd/mapped -v ~/yotta-gbldir-files:/root/.fis-gtm/V6.3-002_x86_64/g rtweed/qewd-server
+       sudo docker run -it -p 8081:8080 -v ~/qewd:/opt/qewd/mapped -v ~/yotta-gbldir-files:/root/.yottadb/r1.20_x86_64/g rtweed/qewd-server
 
   The key bit is this volume mapping parameter:
 
-       v ~/yotta-gbldir-files:/root/.fis-gtm/V6.3-002_x86_64/g
+       v ~/yotta-gbldir-files:/root/.yottadb/r1.20_x86_64/g
 
   This tells YottaDB within the *qewd-server* Docker Container to map its global directory (and hence its database storage) to the files you cloned into the host's *~/yotta-gbldir-files* directory, instead of using its internal version.
 
